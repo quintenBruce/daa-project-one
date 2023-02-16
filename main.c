@@ -65,9 +65,48 @@ const char *SORT_NAMES[] = {"Merge Sort", "Quick Sort", "Bucket Sort"};
 // and return the number of inversions. Uncomment case 2 in InversionsHelper
 // function to test code.  Compare your algorithms output to the correct # of
 // inversions
-//  int QuickSort(int arr[]) {
+int QuickSort(int arr[], int size) {
+    
+    //temp arrays for less, equal, and greater
+    int less[size], equal[size], greater[size];
+    
+    //make pivot element start
+    int pivot = arr[0];
+    
+    //inversions count
+    int inversions = 0;
+    
+    //indexes for less, equal, and greater arrays
+    int l = 0, e = 0, g = 0;
+    
+    for(int i=0;i<size;i++) {
+        if(arr[i] <= pivot) {
+            int greater_count = 0;
+            less[l] = arr[i];
+            for(int j=0;j<i;j++) {
+                if(arr[j] > less[l]) {
+                    greater_count++; 
+                }
+            }
+            inversions+=greater_count;
+            l++;
 
-// }
+        }
+        else if(arr[i] > pivot) {
+            int lesser_count = 0;
+            greater[g] = arr[i];
+            for(int j=0;j<i;j++) {
+                if(arr[j] > greater[g]) {
+                    lesser_count++; 
+                }
+            }
+            inversions+=lesser_count;
+            l++;
+        }
+    }
+    
+    return inversions;
+}
 
 // insert BucketSort code below. The function should sort a one-dimensonal array
 // and return the number of inversions. Uncomment case 3 in InversionsHelper
@@ -172,8 +211,8 @@ void InversionsHelper(int sortMethod, int sourceArrays[NUM_FILES][FILE_SIZE],
         inversionsArray[i] = MergeSort(sourceArrays[i],0,FILE_SIZE-1);
     break;
   case 2:
-    // for (int i = 0; i < NUM_FILES; i++)
-    // 	inversionsArray[i] = QuickSort(sourceArrays[i]);
+     for (int i = 0; i < NUM_FILES; i++)
+       	inversionsArray[i] = QuickSort(sourceArrays[i], FILE_SIZE);
     break;
   case 3:
     // for (int i = 0; i < NUM_FILES; i++)
