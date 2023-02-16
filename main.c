@@ -26,8 +26,8 @@ const char *SORT_NAMES[] = {"Merge Sort", "Quick Sort", "Bucket Sort"};
       int pointer_left = start;
       int pointer_right = mid+1;
 
-      inversion_MergeSort += MergeSortAndCount(a, pointer_left, mid);
-      inversion_MergeSort += MergeSortAndCount(a, pointer_right, end);
+      inversion_MergeSort += MergeSort(arr, pointer_left, mid);
+      inversion_MergeSort += MergeSort(arr, pointer_right, end);
 
       int length_left = mid-start+1;
       int length_right =  end-mid;
@@ -41,19 +41,19 @@ const char *SORT_NAMES[] = {"Merge Sort", "Quick Sort", "Bucket Sort"};
       for( int k = 0; k<length; k++){
 
 
-        if (j>=length_right || (i<length_left && a[pointer_left]<=a[pointer_right])){	
-          temp[k] = a[pointer_left++];
+        if (j>=length_right || (i<length_left && arr[pointer_left]<=arr[pointer_right])){	
+          temp[k] = arr[pointer_left++];
           i++;
         }
         else{
-          temp[k] = a[pointer_right++];
+          temp[k] = arr[pointer_right++];
           j++;
           inversion_MergeSort += (length_left-i);
         }	
       }
 
       for(int i = 0;i<length;i++){
-        a[start+i] = temp[i];	
+        arr[start+i] = temp[i];	
       }
 
     }
